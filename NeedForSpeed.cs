@@ -23,8 +23,8 @@ class RemoteControlCar
     {
         if (!BatteryDrained())
         {
-            _batteryPercentage -= _batteryDrain;
             _distanceDriven += _speed;
+            _batteryPercentage -= _batteryDrain;
         }
     }
 
@@ -49,7 +49,11 @@ class RaceTrack
 
     public bool TryFinishTrack(RemoteControlCar car)
     {
-        throw new NotImplementedException("Please implement the RaceTrack.TryFinishTrack() method");
+        while(car.DistanceDriven() < _distance && !car.BatteryDrained())
+        {
+            car.Drive();
+        }
+        return car.DistanceDriven() >= _distance;
     }
 
     private int _distance;
