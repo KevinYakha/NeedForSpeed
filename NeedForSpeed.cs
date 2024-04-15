@@ -11,17 +11,21 @@ class RemoteControlCar
     
     public bool BatteryDrained()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.BatteryDrained() method");
+        return !(_batteryPercentage >= _batteryDrain);
     }
 
     public int DistanceDriven()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.DistanceDriven() method");
+        return _distanceDriven;
     }
 
     public void Drive()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.Drive() method");
+        if (!BatteryDrained())
+        {
+            _batteryPercentage -= _batteryDrain;
+            _distanceDriven += _speed;
+        }
     }
 
     public static RemoteControlCar Nitro()
@@ -29,8 +33,10 @@ class RemoteControlCar
         throw new NotImplementedException("Please implement the (static) RemoteControlCar.Nitro() method");
     }
 
-    private int _speed;
-    private int _batteryDrain;
+    private int _speed = 0;
+    private int _batteryDrain = 0;
+    private int _batteryPercentage = 100;
+    private int _distanceDriven = 0;
 }
 
 class RaceTrack
